@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Шпаргалка — Тез іздеу</title>
+<style>
+  :root{
+    --bg:#0a0e27; --card:#0f172a; --muted:#94a3b8; --text:#e5e7eb;
+    --ok:#22c55e; --accent:#38bdf8; --warn:#f59e0b;
+    --line:#1e293b;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--text);padding:10px}
+  .wrap{max-width:100%;margin:0 auto}
+  
+  .header{background:linear-gradient(135deg,#0f172a,#1e1b4b);padding:16px;border-radius:16px;margin-bottom:14px;border:1px solid var(--line)}
+  h1{margin:0 0 10px 0;font-size:20px}
+  
+  .search-box{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap}
+  input[type="search"]{flex:1;min-width:200px;padding:14px;border:2px solid var(--accent);border-radius:12px;background:#0b1220;color:var(--text);font-size:16px}
+  input[type="search"]:focus{outline:none;border-color:#38bdf8;box-shadow:0 0 10px rgba(56,189,248,.3)}
+  
+  .quick-tags{display:flex;gap:6px;flex-wrap:wrap}
+  .tag{padding:8px 12px;background:#1e293b;border:1px solid var(--line);border-radius:99px;cursor:pointer;font-size:13px;transition:.2s}
+  .tag:hover{background:var(--accent);border-color:var(--accent);color:#000}
+  .tag.active{background:var(--accent);color:#000;border-color:var(--accent)}
+  
+  .stats{display:flex;gap:10px;padding:10px;background:#0b1220;border-radius:12px;border:1px solid var(--line);font-size:13px;flex-wrap:wrap}
+  .stat-item{padding:4px 8px;background:rgba(56,189,248,.1);border-radius:6px}
+  
+  .results{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;margin-bottom:20px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px;transition:.2s}
+  .card:hover{border-color:var(--accent);box-shadow:0 8px 16px rgba(56,189,248,.15)}
+  .card.hidden{display:none}
+  
+  .q-title{font-size:16px;font-weight:700;margin-bottom:8px;color:#e5e7eb;line-height:1.3}
+  .opts{font-size:13px;color:var(--muted);margin-bottom:6px}
+  .opt{display:inline-block;padding:3px 6px;background:#0b1220;border-radius:6px;margin:2px;border:1px solid var(--line)}
+  
+  .answer{padding:10px;background:rgba(34,197,94,.15);border-left:3px solid var(--ok);border-radius:8px;margin-top:8px;font-weight:600;color:#22c55e}
+  
+  .no-results{text-align:center;padding:40px 20px;color:var(--muted)}
+  
+  .category-badge{display:inline-block;padding:3px 8px;background:rgba(59,130,246,.2);border-radius:6px;font-size:11px;color:#60a5fa;margin-bottom:8px}
+  
+  @media(max-width:600px){
+    .results{grid-template-columns:1fr}
+    input[type="search"]{font-size:16px}
+    h1{font-size:18px}
+  }
+  
+  .highlight{background:rgba(251,146,60,.3);color:#fb923c}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <div class="header">
+    <h1>📖 Шпаргалка — Барлық сұрақ-жауап</h1>
+    <p class="muted" style="margin:0;font-size:13px">💡 Кілт сөз немесе сұрақ жазып, <b>Enter</b> басыңыз</p>
+  </div>
+
+  <div class="search-box">
+    <input type="search" id="search" placeholder="alert, border, PHP, JavaScript, CSS, HTML, SQL..." autofocus>
+    <button onclick="clearSearch()" style="padding:12px 16px;background:#991b1b;border:1px solid #dc2626;border-radius:12px;cursor:pointer;color:#fff">🗑 Тазалау</button>
+  </div>
+
+  <div class="quick-tags" id="tags"></div>
+
+  <div class="stats">
+    <div class="stat-item">Барлығы: <b id="totalStat">0</b></div>
+    <div class="stat-item">Табылды: <b id="foundStat">0</b></div>
+    <div class="stat-item">Аралас.: <b id="filterStat">0</b></div>
+  </div>
+
+  <div class="results" id="results"></div>
+  <div class="no-results" id="noResults">Сұрақ табылмады 🤷</div>
+</div>
+
+<script id="DATA" type="text/plain">
+window объектісінің _______ әдісі хабарламасы бар және бір батырмасы бар қарапайым терезені көрсету үшін қолданылады.	prompt()	splice()	confirm()	shift()	alert()	E	JavaScript
+____________ әдісі енгізу өрісі, хабарлама және OK мен Cancel батырмалары бар диалогтық терезені көрсетеді.	prompt()	splice()	confirm()	shift()	alert()	A	JavaScript
+____________ операторы айнымалының деректер типін сипаттайтын жолды қайтарады.	unshift()	typeof	pop()	some()	push()	B	JavaScript
+Мүмкін болған жағдайда жолды бүтін санға түрлендіретін функция.	parselnt()	parseFloat()	eval()	indexOf()	join()	A	JavaScript
+Мүмкін болған жағдайда жолды қалқымалы үтірлі санға түрлендіретін функция.	parselnt()	parseFloat()	eval()	indexOf()	join()	B	JavaScript
+Жолдағы өрнекті кәдімгі JavaScript өрнегі сияқты есептейтін функция.	parselnt()	parseFloat()	eval()	indexOf()	join()	C	JavaScript
+Массивтегі элементтер санын анықтау үшін қолданылатын қасиет.	Boolean	Object	concat()	length	push()	D	JavaScript
+else блогы жоқ шартты оператор түрі.	шарт	жеңілдетілген форма	ғаламдық айнымалы	өрнек	массив	B	JavaScript
+Массивтен элементті іздеуге арналған әдіс, бірақ іздеу массивтің соңынан басталады.	reverse()	lastIndexOf()	push()	forEach()	indexOf()	B	JavaScript
+Массивтің әрбір элементі үшін берілген функцияны шақыратын әдіс.	concat()	reverse()	forEach()	every()	indexOf()	C	JavaScript
+Бірнеше массивті біріктіру арқылы жаңа массив жасайтын әдіс.	concat()	reverse()	reduce()	push()	sort()	A	JavaScript
+Массивтің соңына элемент қосуға арналған әдіс.	splice()	join()	reduce()	push()	sort()	D	JavaScript
+Массивтің бірінші элементін жоятын әдіс.	unshift()	shift()	pop()	push()	sort()	B	JavaScript
+Бинарлық «НЕМЕСЕ» OR операциясы, егер операндтардың бірі true болса, ақиқат болады.	||	&&	!	!=	%	A	JavaScript
+Унарлық терістеу NOT операциясы.	||	&&	!	!=	%	C	JavaScript
+Массивтен элемент іздеуге арналған әдіс.	reduce()	lastIndexOf()	join()	concat()	indexOf()	E	JavaScript
+__________________ - айнымалылар, тұрақтылар және операторлар жиынтығы.	reduce()	өрнек	жеңілдетілген форма	unshift()	шарт	B	JavaScript
+Ағымдағы итерацияны тоқтатып, келесі қадамға өтеді.	continue	lastIndexOf()	break	parseInt	indexOf()	A	JavaScript
+______________________ — екі индексі бар, әрқайсысы жеке квадрат жақшада жазылады.	біржолды комментарий	көпжолды комментарий	екі өлшемді массив	бір өлшемді массив	шарт	C	JavaScript
+Бинарлық «ЖӘНЕ» AND операциясы, егер екі операнд та true болса, ақиқат болады.	||	&&	!	!=	%	B	JavaScript
+Массивтің бір бөлігін жойып, оның орнына жаңа элементтерді кірістіруге арналған әдіс.	join()	reverse()	reduce()	slice()	splice()	E	JavaScript
+Массив негізінде бір мәнді есептеуге арналған және элементтерді біртіндеп өңдейтін әдіс.	reduceRight()	reverse()	lastIndexOf()	splice()	reverse()	A	JavaScript
+Әр элементке берілген функцияны қолдану арқылы жаңа массив құратын әдіс.	some()	filter()	map()	splice()	pop()	C	JavaScript
+if шартты операторы дегеніміз не?	жолдағы өрнекті JavaScript сияқты есептейді	шарттың ақиқат немесе жалған болуына қарай әртүрлі командалар блогын орындайды	функция ішінде жарияланған айнымалы	if, switch	массив элементіне мән беру	B	JavaScript
+Салыстыру операторлары негізінде құрылған логикалық өрнек дегеніміз не?	alert әдісі	шарт	айнымалы	ғаламдық айнымалы	санау циклі	B	JavaScript
+Массивті бір ортақ мәнге келтіруге арналған әдіс қандай?	concat()	reverse()	reduce()	slice()	splice()	C	JavaScript
+Егер массив элементтерінің кем дегенде біреуі берілген шартқа сай келсе, true мәнін қайтарады, әйтпесе false қайтарады.	some()	sort()	reduce()	slice()	forEach()	A	JavaScript
+JavaScript-та айнымалыны қандай қызметтік сөздер арқылы жариялауға болады?	var, let	int	char	Var	$ int	A	JavaScript
+Логикалық деректер типі, тек екі мән қабылдайды: true және false.	int	char	for	float	boolean	E	JavaScript
+Массив элементтерін кері ретпен қайта сұрыптайтын әдіс.	join()	sort()	reduce()	reverse()	reduceRight()	D	JavaScript
+Массив элементтері негізінде мәтіндік жол құратын әдіс.	join()	indexOf()	reduce()	lastIndexOf()	push()	A	JavaScript
+Селектор анықтамасы __________________?	HTML элементінің атауы немесе HTML элементтер комбинациясы, оларға форматтау ережесі беріледі	анықтама "{" жақшасымен басталып "}" жақшасымен аяқталады	өңдеуге рұқсат беретін атрибут	drag and drop әрекеттерін анықтайтын атрибут	құжат құрылымын беру	A	CSS
+Блоктың анықтамасы __________________?	HTML элементінің атауы немесе HTML элементтерінің комбинациясы, оларға форматтау ережесі беріледі	анықтама "{" сол жақ фигуралы жақшамен басталып, "}" оң жақ фигуралы жақшамен аяқталады	өңдеуге рұқсат беруді көрсететін атрибут	drag and drop әрекеттерін анықтайтын атрибут	құжат құрылымын беру, физикалық форматтау элементтерін қолдану	B	CSS
+CSS енгізу импорт әдісі __________________?	стильдер кестесі сыртқы файлда орналасып, HTML құжатына link арқылы қосылады	сыртқы файлдағы стильдер @import арқылы HTML ішіне енгізіледі	стильдер HTML құжаттың head бөлімінде style тегінде жазылады	әр тегке style атрибуты арқылы жеке стиль беріледі	drag and drop атрибуты	C	CSS
+margin-left дегеніміз не?	сол жақ шекара	сол жақ өріс (поле)	сол жақ шегініс	оң жақ шегініс	оң жақ шекара	B	CSS
+border-right дегеніміз не?	сол жақ шекара	сол жақ өріс	сол жақ шегініс	оң жақ шегініс	оң жақ шекара	E	CSS
+padding-left дегеніміз не?	сол жақ шекара	сол жақ өріс	сол жақ шегініс	оң жақ шегініс	оң жақ шекара	C	CSS
+padding-top дегеніміз не?	жоғарғы шегініс мөлшері	оң жақ шегініс мөлшері	төменгі шегініс мөлшері	сол жақ шегініс мөлшері	оң жақ шегініс	A	CSS
+width қасиеті ______________________________________.	элементтің енін орнатады	элементтің жоғарғы шетінің орнын ата-аналық элементке қатысты анықтайды	элементтің ішкі сол жақ шегінісін орнатады	сол жақ шекараның түсін, түрін және қалыңдығын орнатады	элементтің төменгі шетінің орнын анықтайды	A	CSS
+Төменгі шекараның ені қалай беріледі?	border-top-width:	border-bottom-width:	border-right-width:	border-left-width:	border-top-color:	B	CSS
+Төменгі шекараның түсі қалай анықталады?	border-top-color:	border-bottom-color:	border-right-color:	border-left-color:	border-bottom-width:	B	CSS
+Төрт шекараның түсін бір уақытта көрсетуге арналған қасиет.	border-color	border-bottom-color:	border-right-color:	border-left-color:	border-bottom-width:	A	CSS
+Линия түрі _________ — бұл мәнді қолданғанда блок дөңес көтеріңкі болып көрінеді.	dotted	groove	ridge	inset	outset	E	CSS
+Линия түрі __________________ — шекара дөңес сызық түрінде көрінеді.	dotted	groove	ridge	inset	outset	C	CSS
+___________________ қасиеті фондық суреттің құжатпен бірге жылжитынын немесе жылжымайтынын анықтайды.	background-repeat:	background-attachment:	background-position:	background-origin	background-size	B	CSS
+_____________________ қасиеті фондық суреттің вертикаль және горизонталь бағытта қайталануын анықтайды.	background-repeat:	background-attachment:	background-position:	background-origin	background-size	A	CSS
+_____________________ көмегімен мәтінді астын сызу, үстінен сызу немесе сызып тастау жасауға болады.	text-decoration	text-indent	text-align	text-decoration	line-through	A	CSS
+________________ көмегімен абзацтың бірінші жолындағы бірінші сөздің шегінісін беруге болады.	text-decoration	text-indent	text-align	text-decoration	line-through	B	CSS
+____________ қасиеті мәтінді стильдік блоктың ішіндегі туралауды анықтайды.	text-decoration	text-indent	text-align	text-decoration	line-through	C	CSS
+text-decoration қасиетінің ____________ мәні берілсе, мәтіннің әр жолы астынан сызылады.	underline	overline	line-through	none	text-indent	A	CSS
+__________________ CSS қасиеті әріптер арасындағы қашықтықты орнатады.	letter-spacing	letterspacing.normal	wordspacing	lineheight	text-decoration	A	CSS
+___________________ қасиеті мәтіндегі әріптердің регистрін үлкен/кіші түрлендіреді.	text-transform	text-decoration	text-indent	text-align	text-decoration	A	CSS
+___________________ қасиеті мәтіндегі сызықтың орналасуын анықтайды.	text-decoration-line	text-decoration-style	text-decoration-color	text-transform	text-decoration	A	CSS
+_________________________ қасиеті анимацияның орындалу уақытын орнатады.	animation-duration	animation-name	animation-delay	animation-timing-function	animation-iteration-count	A	CSS
+________________________ қасиеті анимация аяқталғаннан кейін оның қандай күйде қалатынын анықтайды.	animation-duration	animation-name	animation-delay	animation-timing-function	animation-fill-mode	E	CSS
+_______________ қасиеті — анимацияға арналған қысқаша қасиет, барлық параметрлерді бірден орнатуға мүмкіндік береді.	animation-duration	animation-name	animation	animation-timing-function	animation-fill-mode	C	CSS
+________________ қасиеті элементтің трансформациялары қай нүктеге қатысты орындалатынын анықтайды.	transform-origin	transform	rotate()	rotateX	rotateY	A	CSS
+_________________ қасиеті элементтің тышқан оқиғаларына реакциясын өшіруге мүмкіндік береді.	pointer-events	user-select	selection	opacity	hue-rotate	A	CSS
+ul тізімінде нүктелердің орнына квадрат немесе шеңбер, ал ol тізімінде рим сандары немесе әріптер қолдануға мүмкіндік беретін қасиет.	list-style-type	caret-color	list-style-image	list-style	lineheight	A	CSS
+list-style-type, list-style-image және list-style-position қасиеттерін бір уақытта орнатуға мүмкіндік беретін қасиет.	list-style-type	caret-color	list-style-image	list-style	lineheight	D	CSS
+Айнымалы атаулары әрқашан қай таңбадан басталуы керек?	<php>	<?php ... ?>	<script>	<code>	($)	E	PHP
+Константаларды анықтау үшін қандай функция қолданылады?	define()	combine()	concatenate()	merge()	const	A	PHP
+__________ командасы жолдар мен сандарды шығарады, сонымен қатар олардың типін және өлшемін көрсетеді.	Int	Var	Echo	$ int	var_dump	E	PHP
+Функция ішінде ғаламдық айнымалыға қол жеткізу үшін қандай кілт сөз қолданылады?	global	counter	now	time	date	A	PHP
+Статикалық айнымалыны жариялау үшін қандай кілт сөз қолданылады?	Static	Function	Echo	var_dump	global	A	PHP
+Сценарийдің орындалуын дереу тоқтату үшін қандай оператор қолданылады?	exit	return	check()	isset()	break	A	PHP
+PHP-де массивті қалай жариялауға болады?	array{}	array()	[]	{}	rray()	B	PHP
+Айнымалының анықталғанын қалай тексеруге болады?	check()	isset()	is_set()	exists()	defined()	B	PHP
+PHP скриптін аяқтау үшін қандай әдіс қолданылады?	die()	exit()	stop()	end()	halt()	B	PHP
+\n символы нені білдіреді?	табуляция белгісі	байланыс привязка	тік табуляция	жаңа жол	жаңа баған	D	PHP
+PHP-де көпжолды комментарийді қалай жазуға болады?	//	*	##	–	///	B	PHP
+PHP-де объектіні қалай құруға болады?	new Object()	Object()	new ClassName()	class ClassName {}	ClassName()	A	PHP
+\t символы нені білдіреді?	табуляция белгісі	байланыс	тік табуляция	жаңа жол	жаңа баған	A	PHP
+_______________ функциясы екі берілген мәннің арасындағы тізбекті сандар немесе символдар массивін құрады.	range()	new Object()	Object()	new ClassName()	halt()	A	PHP
+Массивтегі элементтер санын қайтаратын функциялар қандай?	new Object()	Object()	new ClassName()	class ClassName {}	count(), sizeof()	E	PHP
+Массивтің барлық элементтерін айнымалыларға көшіру үшін қандай конструкция қолданылады?	range()	count()	sizeof()	list()	copy()	D	PHP
+Массивті бірнеше кіші массивтерге бөлу үшін қандай функция қолданылады?	array chunk()	array_slice()	array_keys()	array_key_exists()	list()	A	PHP
+_______________ функциясы тек кілттерден тұратын массивті қайтарады.	array chunk()	array_slice()	array_keys()	array_key_exists()	list()	C	PHP
+CREATE операторы не істейді?	әртүрлі объектілерді құрады	деректер қорынан ақпарат таңдайды	жазба қосады	жазбаны/жазбаларды жаңартады	жазбаны/жазбаларды жояды	A	SQL
+WHERE параметрі не үшін қолданылады?	таңдалатын жазбаларды анықтайтын шартты көрсету үшін	сұрыптау орындалатын өрісті көрсету үшін	жазбаны өзгерту үшін	әдепкі мәнді орнату үшін	жазбаны жою үшін	A	SQL
+ORDER BY параметрі не үшін қолданылады?	жазбаларды таңдау шартын көрсету үшін	сұрыптау орындалатын өрісті көрсету үшін	жазбаны өзгерту үшін	әдепкі мәнді орнату үшін	жазбаны жою үшін	B	SQL
+DEFAULT мәні нені білдіреді?	таңдау шартын көрсету	сұрыптау өрісін көрсету	өзгерту үшін	кесте құрылғанда берілген әдепкі мәнді орнатады	жою үшін	D	SQL
+ДҚ-дағы деректер типтері: MEDIUMTEXT қандай ұзындықтағы мәтінді сақтай алады?	255 символ	65535 символ	65 КБ	16 МБ	4 ГБ	D	SQL
+Құжаттың басқа жерінде қайта қолдануға болатын, өз алдына бөлек бөлікті сипаттайтын элемент.	<article>	profile	<section>	<aside>	style	A	HTML
+Кестедегі жолдар саны қандай тегтердің санына байланысты анықталады?	UL	<TR>	<TD>	THEAD	<TH>	B	HTML
+Кестедегі негізгі мазмұндық жолдар тобын білдіретін тег.	Тег TBODY	<TR>	<TD>	THEAD	<TH>	A	HTML
+Элементті жасыруға мүмкіндік беретін логикалық атрибут.	contenteditable	hidden	tabindex	draggable	style	B	HTML
+Пайдаланушыға тег ішіндегі мазмұнды өңдеуге рұқсат беруді анықтайтын атрибут.	contenteditable	hidden	tabindex	draggable	translate	A	HTML
+Беттің автономды өздігінен бөлек бөлімін білдіретін элемент.	<section>	hidden	COLGROUP	<article>	profile	A	HTML
+Жолды мәжбүрлі түрде жаңа жолға ауыстыратын элемент.	nav тегі	P тегі	BR тегі	<abbr> тегі	<section> тегі	C	HTML
+Кестедегі бағандардың жолдар тобының төменгі бөлігін аяғын білдіретін тег.	FOOTER тегі	TBODY тегі	THEAD тегі	TFOOT тегі	COLGROUP тегі	D	HTML
+Элементке қолданылатын CSS стильдерін сипаттайтын қасиет.	draggable атрибуты	translate атрибуты	style атрибуты	hidden атрибуты	profile атрибуты	C	HTML
+HTML абзацтарға бөлуді жүзеге асыратын тег қандай?	P тегі	NAV тегі	BODY тегі	BR тегі	THEAD тегі	A	HTML
+HTML құжаты жылжытылған жағдайда да салыстырмалы сілтемелердің дұрыс жұмыс істеуін қамтамасыз ететін тег.	<HREF> тегі	BODY тегі	NAV тегі	BASE тегі	LINK тегі	D	HTML
+title атрибутымен бірге қолданылып, аббревиатураның толық мағынасын көрсететін тег.	<abbr> тегі	<acronym> тегі	accesskey атрибуты	<dfn> тегі	dropzone атрибуты	B	HTML
+Бетті автоматты аудару кезінде тег ішіндегі мазмұнның аударылатынын немесе аударылмайтынын анықтайтын атрибут.	dropzone атрибуты	translate атрибуты	accesskey атрибуты	profile атрибуты	FOOTER тегі	B	HTML
+Мәтінді ерекшелеу акцент беру үшін қолданылатын тег.	FOOTER тегі	<TD> тегі	<em> тегі	<p> тегі	CAPTION тегі	C	HTML
+UL тізімінде нүктелердің орнына квадрат немесе шеңбер, ал ol тізімінде рим сандары немесе әріптер қолдануға мүмкіндік беретін қасиет.	list-style-type	caret-color	list-style-image	list-style	lineheight	A	HTML
+Кестенің атауын тақырыбын анықтайтын тег.	<abbr> тегі	COLGROUP тегі	META тегі	CAPTION тегі	<TD> тегі	D	HTML
+Құжат туралы ақпаратты қамтитын төменгі колонтитул.	FOOTER	<cite>	<em>	HEADER	NAV	A	HTML
+Кестенің тақырып бөлігін білдіретін жолдар тобын анықтайтын тег.	THEAD тегі	HEADER тегі	TBODY тегі	TFOOT тегі	CAPTION тегі	A	HTML
+HTML құжатының тақырып бөлігін анықтайтын тег.	THEAD тегі	HEADER тегі	TBODY тегі	TFOOT тегі	CAPTION тегі	B	HTML
+Браузерге HTML стандарты қолданылғанын көрсететін тег.	draggable атрибуты	accesskey атрибуты	<!DOCTYPE html>	<HEAD>	<BODY>	C	HTML
+Құжат туралы ақпаратты қамтуға арналған тег.	<HEAD>	hidden	<code>	draggable	accesskey	A	HTML
+Браузерлер мен іздеу жүйелеріне арналған ақпаратты сақтайтын метатегтерді анықтайды.	BODY тегі	CAPTION тегі	META тегі	FOOTER тегі	THEAD тегі	C	HTML
+Оның ішіндегі ақпарат әдетте қалың қаріппен көрсетіліп, ұяшықтың ортасына тураланады.	<em> тегі	<TD> тегі	<TH> тегі	<strong> тегі	<abbr> тегі	C	HTML
+< ! - - Текст - - > нені білдіреді?	беттің автономды бөлігі	құжат туралы ақпарат сақтайтын тег	HTML стандарты қолданылғанын көрсететін тег	комментарий тегтері	дұрыс жауап жоқ	D	HTML
+…………… элементі компьютерлік бағдарлама немесе скрипт нәтижесін көрсету үшін қолданылады.	<code> тегі	<samp> тегі	<dfn> тегі	<abbr> тегі	<strong> тегі	D	HTML
+</script>
+
+<script>
+let questions = [];
+const categoryColors = {
+  "JavaScript":"#38bdf8",
+  "CSS":"#f59e0b",
+  "HTML":"#ec4899",
+  "PHP":"#a855f7",
+  "SQL":"#22c55e"
+};
+
+function parseData(){
+  const raw = document.getElementById("DATA").textContent.trim();
+  questions = raw.split(/\n+/).map((line, idx)=>{
+    const p = line.split("\t");
+    if(p.length < 8) return null;
+    return {
+      id: idx,
+      q: p[0].trim(),
+      opts: {A:p[1].trim(), B:p[2].trim(), C:p[3].trim(), D:p[4].trim(), E:p[5].trim()},
+      ans: p[6].trim().toUpperCase(),
+      category: p[7].trim() || "Басқа"
+    };
+  }).filter(Boolean);
+
+  document.getElementById("totalStat").textContent = questions.length;
+  renderTags();
+  renderResults();
+}
+
+function renderTags(){
+  const cats = [...new Set(questions.map(q=>q.category))];
+  document.getElementById("tags").innerHTML = cats.map(cat=>`
+    <span class="tag" onclick="filterByTag(this, '${cat}')" title="${cat}">
+      ${cat} (${questions.filter(q=>q.category===cat).length})
+    </span>
+  `).join("");
+}
+
+function filterByTag(elem, cat){
+  document.querySelectorAll(".tag").forEach(t=>t.classList.remove("active"));
+  if(elem.textContent.includes(cat)){
+    elem.classList.add("active");
+    filterResults(cat);
+  } else {
+    filterResults("");
+  }
+}
+
+function search(){
+  renderResults();
+}
+
+function clearSearch(){
+  document.getElementById("search").value = "";
+  document.querySelectorAll(".tag").forEach(t=>t.classList.remove("active"));
+  renderResults();
+}
+
+function filterResults(cat){
+  const val = document.getElementById("search").value.toLowerCase();
+  const filter = (q) => {
+    const text = (q.q + " " + Object.values(q.opts).join(" ")).toLowerCase();
+    const matchTxt = !val || text.includes(val);
+    const matchCat = !cat || q.category === cat;
+    return matchTxt && matchCat;
+  };
+  
+  const filtered = questions.filter(filter);
+  document.getElementById("foundStat").textContent = filtered.length;
+  
+  renderCards(filtered);
+}
+
+function renderResults(){
+  const val = document.getElementById("search").value.toLowerCase();
+  const filtered = questions.filter(q => 
+    !val || (q.q + " " + Object.values(q.opts).join(" ")).toLowerCase().includes(val)
+  );
+  document.getElementById("foundStat").textContent = filtered.length;
+  renderCards(filtered);
+}
+
+function renderCards(arr){
+  if(arr.length === 0){
+    document.getElementById("results").innerHTML = "";
+    document.getElementById("noResults").classList.remove("hidden");
+    return;
+  }
+  document.getElementById("noResults").classList.add("hidden");
+  document.getElementById("results").innerHTML = arr.map((q,i)=>{
+    const color = categoryColors[q.category] || "#38bdf8";
+    return `
+      <div class="card">
+        <div style="color:${color};font-size:11px;font-weight:700;margin-bottom:6px">
+          ▪ ${q.category}
+        </div>
+        <div class="q-title">${q.q}</div>
+        <div class="opts">
+          <span class="opt">A) ${q.opts.A}</span>
+          <span class="opt">B) ${q.opts.B}</span>
+          <span class="opt">C) ${q.opts.C}</span>
+          <span class="opt">D) ${q.opts.D}</span>
+          <span class="opt">E) ${q.opts.E}</span>
+        </div>
+        <div class="answer">
+          ✅ Жауап: <b>${q.ans})</b> ${q.opts[q.ans]}
+        </div>
+      </div>
+    `;
+  }).join("");
+}
+
+document.getElementById("search").addEventListener("keyup", search);
+document.getElementById("search").addEventListener("input", search);
+
+parseData();
+</script>
+
+</body>
+</html>
